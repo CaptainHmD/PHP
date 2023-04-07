@@ -1,0 +1,8 @@
+Echo - Output strings, numbers, html, etc\
+
+print - Similar to echo, but a bit slower
+
+print_r - Gives a bit more info. Can be used to print arrays
+
+var_dump - Even more info like data type and length
+
