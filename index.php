@@ -26,23 +26,42 @@ echo "</br>";
 echo $name;
 echo "</br>";
 echo $name . ' age '. $age;
-echo "</br>";
+echo "</br>"; 
 echo "$name age $age";
 //?
 echo "</br>";
 echo '5+5= '.'5'+'5';
 define('gender','male');//const variable
 echo "</br>";
-echo gender //without $
+echo gender; //without $
 
 //*
 
 //! arrays
+echo "</br>";
+
+//simple array
+$array = [1,2,3,4];
+$array2 = array(1,2,3,4);
+print_r($array2);
+
+echo "</br>";
 
 
+//Associative array
+$assoArray = [
+  1=>'h',
+  2=>'a',
+  3=>'m',
+  4=>'a',
+  5=>'d'
+];
 
+print_r($assoArray);
+echo "</br>";
 
+//*
 
-
+//! Conditionals
 ?>
 
