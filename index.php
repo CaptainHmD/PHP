@@ -127,7 +127,7 @@ $arrowSum = fn($num1,$num2) => $num1+$num2;
 
 //! Array Functions
 
-
+ 
 echo "<br> Array functions <br> ";
 
 $names =["hamad","ibrahim","ahmed"];
@@ -201,9 +201,6 @@ echo "<br>";
 $sum = array_reduce($lessThan6,fn($previousValue,$currentValue)=>$previousValue+$currentValue);
 
 echo $sum . '<br>';
-
-
-
 
  
 ?>
