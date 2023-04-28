@@ -1,3 +1,10 @@
+
+<?php
+include "../model/conn.php";
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 
@@ -17,9 +24,7 @@
 <body class="overflow-x-hidden">
 <nav class="border p-3">
 <ul class="nav justify-content-center">
-  <li class="nav-item">
-    <a class="nav-link active" aria-current="page" href="#">Home</a>
-  </li>
+
   <li class="nav-item">
     <a class="nav-link" href="#">Tasks</a>
   </li>
