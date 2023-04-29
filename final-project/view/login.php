@@ -1,3 +1,16 @@
+<?php
+
+  // if(password_verify($password,$password2)){
+  //   echo "password match";
+  // }
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark">
 

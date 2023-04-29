@@ -1,24 +1,66 @@
 <?php
+//imports
 include "../model/conn.php";
+include "../model/create-user.php";
+
 
 if(isset($_POST['submit'])){
-  define("username",$_POST['username']);
-  define("email",$_POST['email']);
-  $password = $_POST["password"];
-  
+
+  //! initialize variable
+  //$name = filter_input(INPUT_POST,'name',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+  define("username",filter_input(INPUT_POST,'password',FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+  define("email",filter_input(INPUT_POST,'email',FILTER_SANITIZE_FULL_SPECIAL_CHARS));
+  $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $alert="";
+  $valid=true;
+
+
   if(!usernameValid(username)){
-    echo '<h1 class="text-danger"> username missing </h1>';
+    $alert.='<h1 class="text-danger text-center"> username missing </h1>';
+    $valid=false;
   }
   if(!emailValid(email)){
-    echo '<h1 class="text-danger">email missing </h1>';
+    $alert.='<h1 class="text-danger text-center">email missing </h1>';
+    $valid=false;
   }
   if(!passwordValid($password)){
-    echo '<h1 class="text-danger"> password missing </h1>';
+    $alert.='<h1 class="text-danger text-center"> password missing </h1>';
+    $valid=false;
   }
 
-//todo: encrypt password then store all values in db
 
-}else{
+  
+  if($valid){ // if all inputs fills
+    //! hash the password
+    $password = password_hash($password,PASSWORD_DEFAULT);
+
+    //! check for duplicates username or email
+    if(checkDuplicate(username,email,$mysqli)){
+      //! now create the new user
+      $result = createUser(username,email,$password,$mysqli);    
+      echo '<h1 class="text-success text-center"> User created </h1>';
+    }else{
+      echo '<h1 class="text-danger text-center"> username or email already used</h1>';
+    }
+  }else{
+    echo $alert;
+  }
+
+//todo: encrypt password then store all values in db  
+//! add hashed password to the db
+
+}
+
+
+function checkDuplicate($username,$email,$mysql){
+  $sql = "select * from users where user_name='$username' or email='$email'";
+  $result = $mysql->query($sql);
+  $feedback = mysqli_fetch_all($result,MYSQLI_ASSOC); // convert sql results to associative array , a numeric array, or both.
+  if(empty($feedback)){ // return true if there is no email or username matched
+    return true;// true for none duplicate
+  }
+  return false;
 }
 function usernameValid($username){
   if(empty($username))
@@ -36,8 +78,6 @@ function emailValid($email){
     return false;
   return true;
 }
-
-
 
 
 
@@ -76,6 +116,7 @@ function emailValid($email){
   </li>
 </ul>
 </nav>
+
     <div class="row d-flex justify-content-center">
         <img src="https://img.icons8.com/external-filled-outline-geotatah/256/external-register-training-management-system-filled-outline-filled-outline-geotatah.png" class="img-fluid w-25 m-3" alt="...">
     </div>

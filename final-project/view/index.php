@@ -2,7 +2,6 @@
 <?php
 include "../model/conn.php";
 
-
 ?>
 
 <!DOCTYPE html>
@@ -26,13 +25,13 @@ include "../model/conn.php";
 <ul class="nav justify-content-center">
 
   <li class="nav-item">
-    <a class="nav-link" href="#">Tasks</a>
+    <a class="nav-link" href="./index.php">Tasks</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Login</a>
+    <a class="nav-link" href="./login.php">Login</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">Register</a>
+    <a class="nav-link" href="./register.php">Register</a>
   </li>
 </ul>
 </nav>
