@@ -2,16 +2,16 @@
 //imports
 include "../model/conn.php";
 include "../model/create-user.php";
-
-
+session_start();
+session_destroy(); //! remove this later
 if(isset($_POST['submit'])){
 
   //! initialize variable
   //$name = filter_input(INPUT_POST,'name',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-  define("username",filter_input(INPUT_POST,'password',FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-  define("email",filter_input(INPUT_POST,'email',FILTER_SANITIZE_FULL_SPECIAL_CHARS));
-  $password = filter_input(INPUT_POST,'password',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  define("username",trim(filter_input(INPUT_POST,'username',FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+  define("email",trim(filter_input(INPUT_POST,'email',FILTER_SANITIZE_FULL_SPECIAL_CHARS)));
+  $password = trim(filter_input(INPUT_POST,'password',FILTER_SANITIZE_FULL_SPECIAL_CHARS));
   $alert="";
   $valid=true;
 
@@ -39,16 +39,17 @@ if(isset($_POST['submit'])){
     if(checkDuplicate(username,email,$mysqli)){
       //! now create the new user
       $result = createUser(username,email,$password,$mysqli);    
-      echo '<h1 class="text-success text-center"> User created </h1>';
+      if ($result==1) {
+        echo '<h1 class="text-success text-center"> User created </h1>';
+
+      }else
+        echo '<h1 class="text-danger text-center"> DB creation problem</h1>';
     }else{
       echo '<h1 class="text-danger text-center"> username or email already used</h1>';
     }
   }else{
     echo $alert;
   }
-
-//todo: encrypt password then store all values in db  
-//! add hashed password to the db
 
 }
 
@@ -124,15 +125,15 @@ function emailValid($email){
         <!-- <div class="col-md-12 d-flex justify-content-center"> -->
         <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post" class="col-sm-12 d-flex flex-column justify-content-center p-5 border border-light w-75">
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+                <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
                 <label for="floatingInput">Email address</label>
             </div>
             <div class="form-floating mb-3">
-                <input type="username" class="form-control" id="username" name="username" placeholder="username">
+                <input type="username" class="form-control" id="username" name="username" placeholder="username" minlength="3" required>
                 <label for="floatingInput">Username</label>
             </div>
             <div class="form-floating">
-                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password" minlength="8" required>
                 <label for="floatingPassword">Password</label>
             </div>
             <div class="d-flex justify-content-center mt-4">
