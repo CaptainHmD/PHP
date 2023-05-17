@@ -45,7 +45,20 @@ if(isset($_SESSION['authenticated'])){
 </head>
 
 <body class="overflow-x-hidden">
+<nav class="border p-3">
+        <ul class="nav justify-content-center">
 
+            <li class="nav-item">
+                <a class="nav-link" href="./index.php">Tasks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./login.php">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="./register.php">Register</a>
+            </li>
+        </ul>
+    </nav>
     <div class="row d-flex justify-content-center">
         <img src="https://img.icons8.com/external-bearicons-gradient-bearicons/256/external-login-call-to-action-bearicons-gradient-bearicons.png" class="img-fluid w-25 m-3" alt="...">
     </div>
